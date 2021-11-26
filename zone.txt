@@ -1,0 +1,4 @@
+@ 10800 IN CNAME access.mail.gandi.net.
+imap 10800 IN CNAME access.mail.gandi.net.
+pop 10800 IN CNAME access.mail.gandi.net.
+smtp 10800 IN CNAME relay.mail.gandi.net.
