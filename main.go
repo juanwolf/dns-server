@@ -28,23 +28,18 @@ func CNameFlatenning(r dns.RR) ([]dns.RR, error) {
 	if response.Rcode != dns.RcodeSuccess {
 		log.Fatalf(" *** invalid answer name %s after A query for %s\n", os.Args[1], os.Args[1])
 	}
-	// Stuff must be in the answer section
-	for _, a := range response.Answer {
-		log.Println("Found an A Record!!!!", a)
-	}
 
 	flatRecords := []dns.RR{}
 
 	for _, answer := range response.Answer {
-		fmt.Println("Flattening", m.Answer)
+		fmt.Println("Flattening: ", m.Answer)
 		if answer.Header().Rrtype == dns.TypeA {
 			aRecord := answer.(*dns.A)
 
-			fmt.Println("Let's go for answer:", aRecord)
 			flatRecord := fmt.Sprintf("%s A %s", r.Header().Name, aRecord.A)
 			rr, err := dns.NewRR(flatRecord)
 			if err != nil {
-				log.Fatal("houlalalala")
+				log.Fatal("Could not instantiate a resource record: ", err)
 			}
 			flatRecords = append(flatRecords, rr)
 		}
